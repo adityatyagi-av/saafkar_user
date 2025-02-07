@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems:'center',
+    backgroundColor:'#ffffff',
   },
 });
 
@@ -14,7 +15,6 @@ const SplashScreen = ({navigation}) => {
 const [loggedIn,setLoggedIn] = useState(false);
   useEffect(()=>{
     if(loggedIn){
-
     }
     else{
       setTimeout(()=>{

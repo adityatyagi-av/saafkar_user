@@ -26,4 +26,6 @@ export const colors = {
     light2:'#EBEBF0',
     light3:'#F2F2F5',
     light4:'#FAFAFC',
+    //gray color
+    gray:'#afafaf',
   };
