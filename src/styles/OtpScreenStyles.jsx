@@ -48,25 +48,25 @@ const OtpScreenStyles = StyleSheet.create({
     textAlign: 'center',
     flex: 1,
   },
-  otpInputs:{
-    flex:8,
-    marginBottom:20,
-    marginLeft:20,
-    marginRight:20,
+  otpInputs: {
+    flex: 8,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   didntGetThe: {
-    color: "#000"
-    },
-    resendSmsIn: {
-    color: "#868686"
-    },
-    didntGetTheContainer: {
-        marginTop:20,
+    color: '#000',
+  },
+  resendSmsIn: {
+    color: '#868686',
+  },
+  didntGetTheContainer: {
+    marginTop: 20,
     fontSize: 12,
     lineHeight: 15,
-    fontFamily: "Google Sans",
-    textAlign: "center"
-    }
+    fontFamily: 'Google Sans',
+    textAlign: 'center',
+  },
 });
 
 export {OtpScreenStyles};

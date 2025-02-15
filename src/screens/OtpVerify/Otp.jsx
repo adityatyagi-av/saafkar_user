@@ -8,8 +8,8 @@ const OtpVerify = ({navigation}) => {
     useEffect(()=>{
      setTimeout(()=>{
 navigation.navigate("Dashboard");
-     },5000)
-    },[])
+     },5000);
+    },[]);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={OtpScreenStyles.container}>
