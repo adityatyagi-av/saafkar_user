@@ -8,7 +8,7 @@ const splashStyles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   innerContainer: {
-    flex: 1,
+    flex: 2,
   },
   saf1Icon: {
     // flex: 1,
@@ -61,6 +61,7 @@ const splashStyles = StyleSheet.create({
     borderRadius: 50,
   },
   backParentFlexBox: {
+    flex:2,
     margin: 20,
     alignItems: 'center',
     flexDirection: 'row',
@@ -88,6 +89,9 @@ const splashStyles = StyleSheet.create({
     height: 30,
   },
   groupWrapper: {
+    marginRight:30,
+    boxShadow: '0px 4px 25.9px 0px #00000033',
+
     shadowColor: 'rgba(0, 0, 0, 0.2)',
     shadowOffset: {
       width: 0,
@@ -99,9 +103,11 @@ const splashStyles = StyleSheet.create({
     borderRadius: 66,
     backgroundColor: '#fff',
     width: 190,
-    height: 84,
+    height: 76,
     justifyContent: 'center',
-    padding: 19,
+    // padding: 19,
+    alignItems:'center',
+    alignContent:'center'
   },
   backParent: {
     flex: 1,
