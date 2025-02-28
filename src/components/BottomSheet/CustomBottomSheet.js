@@ -1,58 +1,64 @@
-import React, {useEffect, useRef} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
-import {
-  BottomSheetModal,
-  BottomSheetView,
-  BottomSheetBackdrop,
-} from '@gorhom/bottom-sheet';
+import React, {useCallback, useMemo, useRef} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {GestureHandlerRootView, Pressable} from 'react-native-gesture-handler';
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import {useNavigation} from '@react-navigation/native';
+import {bottomSheetStyle} from '../../styles/componentStyle/BottomSheetStyle';
+import LinearGradient from 'react-native-linear-gradient';
 
-const CustomBottomSheet = () => {
+const CustomBottomSheet = ({bottomSheetComponent}) => {
+  // ref
   const bottomSheetRef = useRef(null);
+  const navigation = useNavigation();
 
-  const snapPoints = ['25%', '50%','75%'];
+  // callbacks
+  const handleSheetChanges = useCallback(index => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
-
-  const handleOpenSheet = () => bottomSheetRef.current?.present();
-  const renderContent = () => (
-    <BottomSheetView style={styles.contentContainer}>
-      <Text>This is your bottom sheet! 🎉</Text>
-    </BottomSheetView>
-  );
-  useEffect(()=>{
-    handleOpenSheet();
-},[]);
-
-  return (
-    <View style={styles.container}>
-      <Button title="Open Sheet" onPress={handleOpenSheet} />
-
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        backdropComponent={props => (
-          <BottomSheetBackdrop
-            {...props}
-            disappearsOnIndex={-1}
-            appearsOnIndex={0}
+  const linearBackgroundComponent=()=>{
+    return(
+ <LinearGradient
+            colors={[
+              'rgba(107, 21, 125, 0)',
+              'rgba(107, 21, 125, 0.4)',
+              'rgba(107, 21, 125, 0.4)',
+              'rgba(107, 21, 125, 0)',
+            ]}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}
+            locations={[0, 0.1, 0.9, 1]}
           />
-        )}>
-        {renderContent()}
-      </BottomSheetModal>
-    </View>
+    )
+  }
+  const handleComponent=()=>{
+    return(
+      <View style={bottomSheetStyle.contentContainer}><Text>Awesome</Text></View>
+    )
+  }
+  // renders
+  return (
+    <>
+
+      <BottomSheet
+        handleStyle={bottomSheetStyle.handleStyle}
+        handleIndicatorStyle={bottomSheetStyle.indicatorStyle}
+        // handleComponent={handleComponent}
+        ref={bottomSheetRef}
+        onChange={handleSheetChanges}
+        snapPoints={['10%', '50%']}
+        backgroundStyle={bottomSheetStyle.backgroundStyle}
+        index={0}
+        style={bottomSheetStyle.bottomSheetStyle}
+        backgroundComponent={linearBackgroundComponent}>
+        <BottomSheetView style={bottomSheetStyle.contentContainer}
+        >
+
+  {bottomSheetComponent}
+        </BottomSheetView>
+      </BottomSheet>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    padding: 20,
-    alignItems: 'center',
-  },
-});
 
 export default CustomBottomSheet;
