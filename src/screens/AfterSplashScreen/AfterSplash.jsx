@@ -62,7 +62,7 @@ const AfterSplashScreen = () => {
           <Pressable >
             <Text style={[splashStyles.back, splashStyles.backTypo]} onPress={()=>setVideoOn(false)}>{!videoOn&& 'Back'}</Text></Pressable>
           <Pressable
-            style={[splashStyles.groupWrapper, splashStyles.backParentFlexBox]}
+            style={[splashStyles.groupWrapper]}
             onPress={tryPress}>
             <View style={splashStyles.tapToCleanWrapper}>
               <Text style={[splashStyles.tapToClean, splashStyles.backTypo]}>

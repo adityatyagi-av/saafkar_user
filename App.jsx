@@ -12,9 +12,9 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
+      
       <StackNavigator />
-      </BottomSheetModalProvider>
+    
     </GestureHandlerRootView>
   );
 };
