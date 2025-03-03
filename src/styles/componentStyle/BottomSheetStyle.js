@@ -11,7 +11,6 @@ const bottomSheetStyle = StyleSheet.create({
     height: 49,
     backgroundColor: '#151515',
     boxShadow:'0px -14px 14px -8px #DBDBDB',
-    
   },
   backgroundStyle: {
     borderTopRightRadius: 0,
@@ -24,6 +23,7 @@ const bottomSheetStyle = StyleSheet.create({
   contentContainer: {
     flex: 1,
     // padding: 36,
+    justifyContent:'flex-start',
     alignItems: 'center',
     backgroundColor:'#151515'
   },

@@ -4,16 +4,17 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const VerifyPhoneStyle = StyleSheet.create({
   verifyContainer: {
+    marginTop:2,
     backgroundColor: '#434343',
     width: wp('95%'),
-    height: 51,
+    height: 58,
     
     borderRadius: 50,
     paddingLeft: 18,
-    flex: 0.19,
+    // flex: 0.19,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingRight: 3,
+    paddingRight: 2,
     alignItems: 'center',
   },
   moveNext: {
@@ -23,7 +24,7 @@ const VerifyPhoneStyle = StyleSheet.create({
     width: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 5,
+    paddingLeft: 4,
     boxShadow: '0px 4px 4px 0px #00000040',
   },
   moveNextSent: {

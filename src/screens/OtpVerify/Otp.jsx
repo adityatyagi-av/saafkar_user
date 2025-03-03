@@ -7,7 +7,7 @@ import {OtpInput} from 'react-native-otp-entry';
 const OtpVerify = ({navigation}) => {
     useEffect(()=>{
      setTimeout(()=>{
-navigation.navigate("Dashboard");
+// navigation.navigate("Dashboard");
      },5000);
     },[]);
   return (
@@ -47,7 +47,9 @@ navigation.navigate("Dashboard");
             onFocus={() => console.log('Focused')}
             onBlur={() => console.log('Blurred')}
             onTextChange={text => console.log(text)}
-            onFilled={text => console.log(`OTP is ${text}`)}
+            onFilled={(text) => {
+              navigation.navigate("Dashboard");
+              console.log(`OTP is ${text}`)}}
             textInputProps={{
               accessibilityLabel: 'One-Time Password',
             }}

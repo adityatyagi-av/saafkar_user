@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const OtpScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
   },
@@ -46,10 +46,11 @@ const OtpScreenStyles = StyleSheet.create({
   weHaveSentContainer: {
     color: '#7a7a7a',
     textAlign: 'center',
-    flex: 1,
+    // flex: 1,
   },
   otpInputs: {
-    flex: 8,
+    // flex: 8,
+    marginTop:20,
     marginBottom: 20,
     marginLeft: 20,
     marginRight: 20,
