@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const OtpScreenStyles = StyleSheet.create({
   container: {
@@ -11,9 +12,8 @@ const OtpScreenStyles = StyleSheet.create({
     overflow: 'hidden',
   },
   otpVerification: {
-    fontSize: 20,
-    lineHeight: 26,
-    fontWeight: '500',
+    fontSize: 24,
+    fontWeight: 600,
     fontFamily: 'Google Sans',
     color: '#000',
     textAlign: 'center',
@@ -21,13 +21,14 @@ const OtpScreenStyles = StyleSheet.create({
   arrowLeftParent: {
     // flex: 1,
     marginBottom: 20,
-    width: '40%',
     flexDirection: 'row',
-    marginTop: 60,
-    marginLeft: -100,
+    marginTop: 40,
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    gap: 80,
+    alignItems: 'center',
+    alignSelf:'flex-start',
+    marginLeft:'20',
+    gap: 100,
+    
   },
   weHaveSent: {
     fontSize: 16,

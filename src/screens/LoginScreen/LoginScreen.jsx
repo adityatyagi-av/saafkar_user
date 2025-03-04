@@ -70,6 +70,30 @@ const Login = ({navigation}) => {
                       onChangePhoneNumber={handleInputValue}
                       selectedCountry={selectedCountry}
                       onChangeSelectedCountry={handleSelectedCountry}
+                      phoneInputStyles={{
+                        container: {
+                          borderWidth: 0,
+                          borderColor: '#CDCDCD',
+                          boxShadow: '0px 0px 4px 3px #0000001A'
+
+                        },
+                        flagContainer: {
+                          borderTopLeftRadius: 7,
+                          borderBottomLeftRadius: 7,
+                          backgroundColor: '#ffffff',
+                          justifyContent: 'center',
+                        },
+                        callingCode:{
+                          fontWeight:400,
+                        },
+                        caret:{
+                          color:'#CDCDCD',
+                        },
+                        divider:{
+                          color:'#FCFCFC',
+                        }
+                  
+                      }}
                     />
                   </View>
                 </View>

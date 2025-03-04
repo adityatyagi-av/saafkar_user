@@ -53,8 +53,10 @@ const AfterSplashScreen = () => {
             </Text>
           </View>
           <View style={splashStyles.ellipseParent}>
-            <View style={splashStyles.pinkEllipse} />
-            <View style={splashStyles.grayEllipse} />
+
+            {videoOn?<View style={splashStyles.grayEllipse} />:<View style={splashStyles.pinkEllipse} />}
+            {videoOn?<View style={splashStyles.pinkEllipse} />:<View style={splashStyles.grayEllipse} />}
+            
           </View>
         </View>
         <View />

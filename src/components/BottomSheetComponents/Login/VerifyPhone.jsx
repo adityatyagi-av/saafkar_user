@@ -42,7 +42,7 @@ const VerifyPhone = () => {
               : VerifyPhoneStyle.moveNext
           }
           disabled={isOtpSent}>
-          <Image source={require('../../../assets/icons/Right.png')} />
+          <Image source={require('../../../assets/icons/Right.png')} resizeMode="cover"/>
         </Pressable>
       </View>
       <View style={VerifyPhoneStyle.bar} />
