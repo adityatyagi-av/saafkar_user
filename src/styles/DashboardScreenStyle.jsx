@@ -22,7 +22,8 @@ const DashboardScreenStyles = StyleSheet.create({
     flexDirection:'row',
     maxWidth:wp('70%'),
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'#ffff',
   },
   locationIconBox:{
     position:'relative',
@@ -57,7 +58,18 @@ const DashboardScreenStyles = StyleSheet.create({
   },
   mainIcon:{
     alignSelf:'center',
-  }
+  },
+  searchBarContainer:{
+    height:hp('5%'),
+    width:wp('92%'),
+    marginLeft:wp('6%'),
+    marginRight:wp('2.2%'),
+    borderRadius:12,
+    marginTop:16,
+    boxShadow: "0px 4px 33.2px 0px #00000026",
+    justifyContent:'center',
+    alignItems:'space-between',
+  },
 });
 
 export default DashboardScreenStyles;

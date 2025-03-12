@@ -1,12 +1,17 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import DashboardScreenStyles from '../../styles/DashboardScreenStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Svg, {Path} from 'react-native-svg';
-const DashboardHeader = ({navigation}) => {
+import { useNavigation } from '@react-navigation/native';
+const DashboardHeader = () => {
+    const navigation = useNavigation();
+  
   return (
     <View style={DashboardScreenStyles.topContainer}>
-      <View style={DashboardScreenStyles.locationBox}>
+      <Pressable onPress={()=>{
+        navigation.navigate('MapScreen')
+      }} style={DashboardScreenStyles.locationBox}>
         <View style={DashboardScreenStyles.locationIconBox}>
           <Icon name="location" size={50} color="#333333" />
         </View>
@@ -17,7 +22,7 @@ const DashboardHeader = ({navigation}) => {
           </Text>
           <Text>Delhi - Meerut Expressway....</Text>
         </View>
-      </View>
+      </Pressable>
       <View style={DashboardScreenStyles.iconBox}>
         <View style={DashboardScreenStyles.icon}>
           <Svg

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
       android:name=".MainApplication"
@@ -10,6 +10,8 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:supportsRtl="true">
+      <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAR160_h_9UPdyRSjULGox38FJFQ9UncZo" />
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -23,4 +25,5 @@
         </intent-filter>
       </activity>
     </application>
+
 </manifest>
