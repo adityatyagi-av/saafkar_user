@@ -14,31 +14,8 @@ const MapScreen = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
-      <GooglePlacesAutocomplete
-        placeholder="Type a place"
-        onPress={(data, details = null) => console.log(data, details)}
-        query={{key: '',
-          language: 'en',
 
-        }}
-        fetchDetails={true}
-        onFail={error => console.log(error)}
-        onNotFound={() => console.log('no results')}
-        predefinedPlaces={[
-          {
-            type: 'favorite',
-            description: 'Dominos Pizza',
-            geometry: {location: {lat: 48.8152937, lng: 2.4597668}},
-          },
-          {
-            type: 'favorite',
-            description: 'Chicken Republic',
-            geometry: {location: {lat: 48.8496818, lng: 2.2940881}},
-          },
-        ]}
-      />
-
-        {/* <MapView
+        <MapView
         ref={mapRef}
 
         onPress={(e)=> setMarkerPosition(e.nativeEvent.coordinate)}
@@ -58,9 +35,31 @@ const MapScreen = ({navigation}) => {
             onDragEnd={(e) => setMarkerPosition(e.nativeEvent.coordinate)}
             title="My Location"
           />
-        </MapView> */}
+        </MapView>
       </View>
-      <CustomBottomSheet />
+      <CustomBottomSheet  
+//       bottomSheetComponent={      <GooglePlacesAutocomplete
+//         placeholder="Type a place"
+//         onPress={(data, details = null) => console.log(data, details)}
+//         query={{key: "AIzaSyAR160_h_9UPdyRSjULGox38FJFQ9UncZo" ,language: 'en',}}
+//         fetchDetails={true}
+//         onFail={error => console.log(error)}
+//         onNotFound={() => console.log('no results')}
+//         predefinedPlaces={[
+//           {
+//             type: 'favorite',
+//             description: 'Dominos Pizza',
+//             geometry: {location: {lat: 48.8152937, lng: 2.4597668}},
+//           },
+//           {
+//             type: 'favorite',
+//             description: 'Chicken Republic',
+//             geometry: {location: {lat: 48.8496818, lng: 2.2940881}},
+//           },
+//         ]}
+//       />
+// }
+/>
     </>
   );
 };

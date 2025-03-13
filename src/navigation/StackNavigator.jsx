@@ -18,7 +18,7 @@ const StackNavigator = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Splash" component={MapScreen} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="After-Splash" component={AfterSplashScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="OtpVerify" component={OtpVerify} />
