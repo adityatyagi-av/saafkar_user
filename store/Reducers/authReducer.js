@@ -2,10 +2,11 @@ import TYPES from "../constants";
 
 const initialState = {
     error: null,
-    loading: true,
+    loading: false,
     userData:{},
     isAuthenticated:false,
     isOtpSent:false,
+    mobileNumber:null,
   };
 // this reducer would be used at time of authenticat
   const userAuth = (state = initialState, action) => {
@@ -23,7 +24,6 @@ const initialState = {
             ...state,
             loading: false,
             error:null,
-            isAuthenticated:true,
             isOtpSent:true,
         };
       case TYPES.SEND_OTP_FAILURE:

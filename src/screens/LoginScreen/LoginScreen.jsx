@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   Keyboard,
   KeyboardAvoidingView,
@@ -16,17 +17,36 @@ import {loginStyles} from '../../styles/loginScreenStyle';
 import PhoneInput, {
   isValidPhoneNumber,
 } from 'react-native-international-phone-number';
+import {useDispatch, useSelector} from 'react-redux';
+import {sendOtp} from '../../../store/Actions/authAction';
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {error, loading, isOtpSent} = useSelector(state => state.userAuth);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [inputValue, setInputValue] = useState('');
-
+  const [isValidPhone, setIsValidPhone] = useState(false);
   function handleInputValue(phoneNumber) {
-    setInputValue(phoneNumber);
+    const cleanedPhoneNumber = phoneNumber.replace(/\s/g, '');
+    setIsValidPhone(cleanedPhoneNumber.length === 10);
+    setInputValue(cleanedPhoneNumber);
   }
+  useEffect(() => {
+    if (isOtpSent) {
+      navigation.navigate('OtpVerify');
+    }
+    console.log(isOtpSent)
+  }, [isOtpSent]);
 
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
+  }
+  async function handleSendOtp() {
+    if (inputValue.length !== 10) {
+      return;
+    } else {
+      await dispatch(sendOtp('91', inputValue));
+    }
   }
 
   return (
@@ -74,8 +94,7 @@ const Login = ({navigation}) => {
                         container: {
                           borderWidth: 0,
                           borderColor: '#CDCDCD',
-                          boxShadow: '0px 0px 4px 3px #0000001A'
-
+                          boxShadow: '0px 0px 4px 3px #0000001A',
                         },
                         flagContainer: {
                           borderTopLeftRadius: 7,
@@ -83,26 +102,40 @@ const Login = ({navigation}) => {
                           backgroundColor: '#ffffff',
                           justifyContent: 'center',
                         },
-                        callingCode:{
-                          fontWeight:400,
+                        callingCode: {
+                          fontWeight: 400,
                         },
-                        caret:{
-                          color:'#CDCDCD',
+                        caret: {
+                          color: '#CDCDCD',
                         },
-                        divider:{
-                          color:'#FCFCFC',
-                        }
-                  
+                        divider: {
+                          color: '#FCFCFC',
+                        },
                       }}
                     />
                   </View>
                 </View>
                 <Pressable
-                  style={loginStyles.continueParent}
-                  onPress={() => {
-                    navigation.navigate('OtpVerify');
-                  }}>
-                  <Text style={loginStyles.continue}>Continue</Text>
+                  disabled={!isValidPhone}
+                  style={{
+                    borderRadius: 13,
+                    backgroundColor: isValidPhone ? '#6d157f' : '#434343',
+                    width: '100%',
+                    overflow: 'hidden',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingHorizontal: 133,
+                    paddingVertical: 11,
+                  }}
+                  onPress={handleSendOtp}>
+                  {loading ? (
+                    <ActivityIndicator size="small" />
+                  ) : (
+                    <Text style={loginStyles.continue}>Continue</Text>
+                  )}
+
+                  {/*  */}
                 </Pressable>
                 {/* or container */}
                 <View style={loginStyles.loginOrContainer}>
@@ -152,8 +185,6 @@ const Login = ({navigation}) => {
                   </Text>
                 </Text>
               </View>
-
-            
             </ScrollView>
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
