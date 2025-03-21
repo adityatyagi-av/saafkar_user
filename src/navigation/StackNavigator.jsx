@@ -7,6 +7,7 @@ import Login from '../screens/LoginScreen/LoginScreen';
 import OtpVerify from '../screens/OtpVerify/Otp';
 import Dashboard from '../screens/Dashboard/Dashboard';
 import MapScreen from '../screens/MapScreen/MapScreen';
+import NameAndEmailInput from '../screens/NameAndEmailInput/NameAndEmailInput';
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -24,6 +25,7 @@ const StackNavigator = () => {
         <Stack.Screen name="OtpVerify" component={OtpVerify} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="nameAndEmail" component={NameAndEmailInput} />
       </Stack.Navigator>
     </NavigationContainer>
   );

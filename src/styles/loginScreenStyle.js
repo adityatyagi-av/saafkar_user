@@ -152,17 +152,7 @@ const loginStyles = StyleSheet.create({
     color: '#fff',
     // textAlign: 'left',
   },
-  continueParent: {
-    borderRadius: 13,
-    backgroundColor: '#6d157f',
-    width: '100%',
-    overflow: 'hidden',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 133,
-    paddingVertical: 11,
-  },
+ 
   socialContainer: {
     gap: 78,
     flexDirection: 'row',

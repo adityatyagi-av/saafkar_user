@@ -22,7 +22,7 @@ import {sendOtp} from '../../../store/Actions/authAction';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
-  const {error, loading, isOtpSent} = useSelector(state => state.userAuth);
+  const {error, loading, isOtpSent,mobileNumber} = useSelector(state => state.userAuth);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [isValidPhone, setIsValidPhone] = useState(false);
@@ -31,11 +31,16 @@ const Login = ({navigation}) => {
     setIsValidPhone(cleanedPhoneNumber.length === 10);
     setInputValue(cleanedPhoneNumber);
   }
+  useEffect(()=>{
+    if(mobileNumber){
+      setInputValue(mobileNumber);
+    }
+  },[isOtpSent]);
+  console.log(error, loading, isOtpSent,mobileNumber)
   useEffect(() => {
     if (isOtpSent) {
       navigation.navigate('OtpVerify');
     }
-    console.log(isOtpSent)
   }, [isOtpSent]);
 
   function handleSelectedCountry(country) {

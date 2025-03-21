@@ -1,21 +1,68 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import {OtpScreenStyles} from '../../styles/OtpScreenStyles';
 import {OtpInput} from 'react-native-otp-entry';
+import {useDispatch, useSelector} from 'react-redux';
+import {backFromOtp, verifyOtp} from '../../../store/Actions/authAction';
+import { startOtpListener } from 'react-native-otp-verify';
+
 const OtpVerify = ({navigation}) => {
-    useEffect(()=>{
-     setTimeout(()=>{
-// navigation.navigate("Dashboard");
-     },5000);
-    },[]);
+  const [otp, setOtp] = useState('');
+  const otpRef = useRef(null);
+  const {error, loading, isOtpSent, mobileNumber,userData,userDetailSetFlag,isAuthenticated} = useSelector(
+    state => state.userAuth,
+  );
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const startListener = async () => {
+      try {
+        await startOtpListener(message => {
+          const otpInput = /(\d{6})/g.exec(message)?.[1];
+          if (otpInput) {
+            setOtp(otpInput);
+          }
+        });
+      } catch (e) {
+      }
+    };
+
+    startListener();
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (otp && otpRef.current) {
+      otpRef?.current?.setValue(otp);
+    }
+  }, [otp]);
+  const handleOtpVerify=()=>{
+    
+    if(otp.length===6){
+      dispatch(verifyOtp(mobileNumber,otp));
+    }
+
+  }
+  useEffect(()=>{
+if(isAuthenticated){
+  if(!userDetailSetFlag){
+    navigation.replace('nameAndEmail');
+  }
+  else{
+    navigation.replace("Dashboard");
+  }
+}
+  },[userData]);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={OtpScreenStyles.container}>
         <View style={OtpScreenStyles.arrowLeftParent}>
           <Pressable
             onPress={() => {
+              dispatch(backFromOtp());
               navigation.navigate('Login');
             }}>
             <Image source={require('../../assets/icons/arrow-left.png')} />
@@ -30,10 +77,13 @@ const OtpVerify = ({navigation}) => {
             <Text style={OtpScreenStyles.text}>{`
 `}</Text>
           </Text>
-          <Text style={OtpScreenStyles.xxxxxxxxxxx}>+91-XXXXXXXXXXX</Text>
+          <Text style={OtpScreenStyles.xxxxxxxxxxx}>
+            +91-{mobileNumber && mobileNumber}
+          </Text>
         </Text>
         <View style={OtpScreenStyles.otpInputs}>
           <OtpInput
+            ref={otpRef}
             numberOfDigits={6}
             focusColor="#7A7A7A"
             autoFocus={false}
@@ -44,20 +94,21 @@ const OtpVerify = ({navigation}) => {
             type="numeric"
             secureTextEntry={false}
             focusStickBlinkingDuration={500}
-            onFocus={() => console.log('Focused')}
-            onBlur={() => console.log('Blurred')}
-            onTextChange={text => console.log(text)}
-            onFilled={(text) => {
-              navigation.navigate("Dashboard");
-              console.log(`OTP is ${text}`)}}
+            onFocus={() =>{}}
+            onBlur={() => {}}
+            onTextChange={text => setOtp(text)}
+            onFilled={handleOtpVerify}
             textInputProps={{
               accessibilityLabel: 'One-Time Password',
             }}
           />
           <Text style={OtpScreenStyles.didntGetTheContainer}>
-<Text style={OtpScreenStyles.didntGetThe}>{`Didn’t get the OTP? `}</Text>
-<Text style={OtpScreenStyles.resendSmsIn}>Resend SMS in 18s</Text>
-</Text>
+            <Text
+              style={
+                OtpScreenStyles.didntGetThe
+              }>{`Didn’t get the OTP? `}</Text>
+            <Text style={OtpScreenStyles.resendSmsIn}>Resend SMS in 18s</Text>
+          </Text>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
