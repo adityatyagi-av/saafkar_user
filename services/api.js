@@ -1,16 +1,15 @@
-// src/services/api.js
-
 import axios from 'axios';
-import { getTokens, storeTokens, clearTokens } from './tokenService';
-import { BASE_URL } from '../src/ApiBaseUrl/ApiBaseUrl';
 
+import { UserRefreshToken } from './ApiEndPoints/ApiEndPoints';
+import { Alert } from 'react-native';
+import { BASE_URL } from '../src/ApiBaseUrl/ApiBaseUrl';
+import { clearTokens, getTokens, storeTokens } from './tokenService';
+import { navigationRef } from '../utils/RootNavigation';
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
 });
 
-// Request interceptor to add the access token
 api.interceptors.request.use(
   async config => {
     const tokens = await getTokens();
@@ -22,40 +21,72 @@ api.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-// Response interceptor to handle 401 & refresh the token
+// Response Interceptor
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
+    const status = error.response?.status;
+    const message = error.response?.data?.message;
 
     if (
-      error.response?.status === 401 &&
+      (status === 401 || status === 403) &&
       !originalRequest._retry &&
-      !originalRequest.url.includes('/refresh-token')
+      message?.toLowerCase().includes('expired')
     ) {
       originalRequest._retry = true;
 
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(token => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch(err => Promise.reject(err));
+      }
+
+      isRefreshing = true;
+
       try {
         const tokens = await getTokens();
-        if (!tokens?.refreshToken) throw new Error('Missing refresh token');
-
-        const refreshResponse = await axios.post(`${BASE_URL}/auth/refresh-token`, {}, {
-          headers: {
-            Cookie: `refreshToken=${tokens.refreshToken}`,
-          },
-          withCredentials: true,
+        const refreshResponse = await axios.post(`${BASE_URL}${UserRefreshToken}`, {
+          refreshToken: tokens?.refreshToken,
         });
 
-        const newTokens = refreshResponse.data;
-        await storeTokens(newTokens);
+        const { accessToken, refreshToken } = refreshResponse.data.data;
+        await storeTokens({ accessToken, refreshToken });
+        api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        processQueue(null, accessToken);
 
-        // Retry the original request with new access token
-        originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
+        processQueue(refreshError, null);
         await clearTokens();
-        // Optional: dispatch logout action here
+        Alert.alert('Session Expired', 'Please login again.');
+        navigationRef.current?.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 

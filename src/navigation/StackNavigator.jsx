@@ -8,11 +8,12 @@ import OtpVerify from '../screens/OtpVerify/Otp';
 import Dashboard from '../screens/Dashboard/Dashboard';
 import MapScreen from '../screens/MapScreen/MapScreen';
 import NameAndEmailInput from '../screens/NameAndEmailInput/NameAndEmailInput';
+import { navigationRef } from '../../utils/RootNavigation';
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{
