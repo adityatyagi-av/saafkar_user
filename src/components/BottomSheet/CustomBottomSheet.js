@@ -13,7 +13,7 @@ const CustomBottomSheet = ({bottomSheetComponent}) => {
 
   // callbacks
   const handleSheetChanges = useCallback(index => {
-    console.log('handleSheetChanges', index);
+    // console.log('handleSheetChanges', index);
   }, []);
 
   const linearBackgroundComponent=()=>{

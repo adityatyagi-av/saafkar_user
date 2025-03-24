@@ -18,7 +18,7 @@ import PhoneInput, {
   isValidPhoneNumber,
 } from 'react-native-international-phone-number';
 import {useDispatch, useSelector} from 'react-redux';
-import {sendOtp} from '../../../store/Actions/authAction';
+import {handleLogout, sendOtp} from '../../../store/Actions/authAction';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -36,6 +36,9 @@ const Login = ({navigation}) => {
       setInputValue(mobileNumber);
     }
   },[isOtpSent]);
+  useEffect(()=>{
+dispatch(handleLogout())
+  },[])
   console.log(error, loading, isOtpSent,mobileNumber)
   useEffect(() => {
     if (isOtpSent) {

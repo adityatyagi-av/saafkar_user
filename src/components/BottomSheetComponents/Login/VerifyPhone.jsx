@@ -10,7 +10,6 @@ const VerifyPhone = () => {
   const [phone, setPhone] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
   const onTextChange = text => {
-    console.log(text.length);
     if (text.length > 10) {
       return;
     } else {

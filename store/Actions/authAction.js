@@ -1,4 +1,5 @@
-import {getTokens, storeTokens} from '../../services/tokenService';
+import api from '../../services/api';
+import {clearTokens, getTokens, storeTokens} from '../../services/tokenService';
 import {BASE_URL} from '../../src/ApiBaseUrl/ApiBaseUrl';
 import {
   SEND_OTP,
@@ -28,7 +29,7 @@ export const sendOtp = (nationalCode, phone) => {
         });
       }
     } catch (error) {
-      console.log(error);
+     
       dispatch({
         type: TYPES.SEND_OTP_FAILURE,
         error: error.message,
@@ -87,27 +88,24 @@ export const updateEmailAndPhone = (name, email) => {
   return async dispatch => {
     try {
       dispatch({type: TYPES.UPDATE_EMAIL_LOADING});
-
-      const tokens = await getTokens();
-      console.log(tokens?.accessToken);
-
-      // const response = await axios.post(`${BASE_URL}${UPDATE_EMAIL}`, {
-      //   name,
-      //   email,
-      // });
-      // if (response?.status === 200) {
-      //   dispatch({
-      //     type: TYPES.UPDATE_EMAIL_SUCCESS,
-      //     payload: response?.data?.data,
-      //   });
-      //   return true;
-      // } else {
-      //   dispatch({
-      //     type: TYPES.UPDATE_EMAIL_FAILURE,
-      //     error: 'Something went wrong, please try again',
-      //   });
-      // }
+      const response = await api.post(`${BASE_URL}${UPDATE_EMAIL}`, {
+        name,
+        email,
+      });
+      if (response?.status === 200) {
+        dispatch({
+          type: TYPES.UPDATE_EMAIL_SUCCESS,
+          payload: response?.data?.data,
+        });
+        return true;
+      } else {
+        dispatch({
+          type: TYPES.UPDATE_EMAIL_FAILURE,
+          error: 'Something went wrong, please try again',
+        });
+      }
     } catch (error) {
+      dispatch({type: TYPES.LOGOUT_SUCCESS});
       dispatch({
         type: TYPES.UPDATE_EMAIL_FAILURE,
         error: error.message,
@@ -119,6 +117,7 @@ export const updateEmailAndPhone = (name, email) => {
 export const handleLogout = () => {
   return async dispatch => {
     try {
+await clearTokens();
       dispatch({type: TYPES.LOGOUT_SUCCESS});
     } catch (error) {
       console.log(error);

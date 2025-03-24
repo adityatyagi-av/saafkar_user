@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   Text,
@@ -17,7 +18,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {validateEmail} from '../../../utils/utils';
-import { handleLogout, updateEmailAndPhone } from '../../../store/Actions/authAction';
+import {
+  handleLogout,
+  updateEmailAndPhone,
+} from '../../../store/Actions/authAction';
 
 const NameAndEmailInput = ({navigation}) => {
   const [name, setName] = useState('');
@@ -35,7 +39,7 @@ const NameAndEmailInput = ({navigation}) => {
   } = useSelector(state => state.userAuth);
   const dispatch = useDispatch();
   const handleDetailSubmit = () => {
-    dispatch(updateEmailAndPhone(name,email));
+    dispatch(updateEmailAndPhone(name, email));
   };
 
   useEffect(() => {
@@ -45,6 +49,12 @@ const NameAndEmailInput = ({navigation}) => {
       setCanContinue(checkValidation);
     }
   }, [name, email, checked]);
+
+  useEffect(()=>{
+    if(userDetailSetFlag){
+      navigation.navigate('Dashboard');
+    }
+  },[userDetailSetFlag]);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={PersonalDetailStyles.container}>
@@ -117,7 +127,11 @@ const NameAndEmailInput = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text style={PersonalDetailStyles.buttonText}>Continue</Text>
+              {loading ? (
+                <ActivityIndicator size="large" />
+              ) : (
+                <Text style={PersonalDetailStyles.buttonText}>Continue</Text>
+              )}
             </Pressable>
           </View>
         </View>
