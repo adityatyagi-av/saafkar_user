@@ -36,10 +36,6 @@ const Login = ({navigation}) => {
       setInputValue(mobileNumber);
     }
   },[isOtpSent]);
-  useEffect(()=>{
-dispatch(handleLogout())
-  },[])
-  console.log(error, loading, isOtpSent,mobileNumber)
   useEffect(() => {
     if (isOtpSent) {
       navigation.navigate('OtpVerify');

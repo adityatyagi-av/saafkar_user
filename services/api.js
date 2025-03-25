@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// 🔁 Track refresh state and failed requests
+// Track refresh state and failed requests
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -61,7 +61,7 @@ api.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         }).then(token => {
           originalRequest.headers.Authorization = `Bearer ${token}`;
-          console.log('🔄 Retrying request after queue with new token...');
+          console.log('Retrying request after queue with new token...');
           return api(originalRequest);
         }).catch(err => {
           console.log(' Retried request failed:', err);
@@ -73,7 +73,7 @@ api.interceptors.response.use(
 
       try {
         const tokens = await getTokens();
-        console.log('🔄 Refreshing with:', tokens?.refreshToken?.slice(0, 10));
+        console.log(' Refreshing with:', tokens?.refreshToken?.slice(0, 10));
 
         const refreshResponse = await axios.post(`${BASE_URL}${UPDATE_REFRESH_TOKEN}`, {
           refreshToken: tokens?.refreshToken,
@@ -106,7 +106,7 @@ api.interceptors.response.use(
       }
     }
 
-    console.log(' Final error passed to caller:', error.message);
+    console.log('Final error passed to caller:', error.message);
     return Promise.reject(error);
   }
 );

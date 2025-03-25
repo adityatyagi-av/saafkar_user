@@ -1,7 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {colors} from './colors/colors';
 import {typography} from './typography/typography';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const splashStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,7 +119,7 @@ const splashStyles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   videoStyle: {
-    width: '100%',
+    width: wp('100%'),
     height: 231, // Same as image
   },
   
