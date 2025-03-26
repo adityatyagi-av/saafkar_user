@@ -25,12 +25,18 @@ const OngoingServices = () => {
               <Image
                     style={DashboardScreenStyles.companyLogo}
                     // resizeMode="contain"
-                    source={require('../../assets/logo/logo.png')}
+                    source={require('../../assets/images/suzuki.png')}
                   />
               </View>
-              <View style={DashboardScreenStyles.promoText}>
-                <Text>
+              <View style={DashboardScreenStyles.promoTextContainter}>
+                <Text style={DashboardScreenStyles.promoTextNormal}>
                 Swing by!
+                </Text>
+                <Text style={DashboardScreenStyles.promoTextBold}>
+                We'll take care of your vehicle repairs.
+                </Text>
+                <Text style={DashboardScreenStyles.promoTextNormal}>
+                We do it all!
                 </Text>
               </View>
             </View>
@@ -38,13 +44,10 @@ const OngoingServices = () => {
             <Image
                     style={DashboardScreenStyles.companyLogo}
                     // resizeMode="contain"
-                    source={require('../../assets/logo/logo.png')}
+                    source={require('../../assets/images/swift.png')}
                   />
             </View>
           </View>
-        ))}
-        {Array.from({length: 130}).map((_, index) => (
-          <Text>hifff</Text>
         ))}
       </ScrollView>
     </View>

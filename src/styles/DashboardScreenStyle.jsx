@@ -35,6 +35,8 @@ const DashboardScreenStyles = StyleSheet.create({
   locationTextBox: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent:'center',
+    alignItems:'center',
   },
   locationText1: {
     fontWeight: 600,
@@ -152,11 +154,30 @@ const DashboardScreenStyles = StyleSheet.create({
     flexDirection:'row',
   },
   leftContainerPart:{
-
+    width:wp('45%'),
+    paddingLeft:25,
   },
   rightContainerPart:{
-
+    width:wp('45%'),
+    alignItems:'center',
+    justifyContent:'center',
   },
+  companyLogo:{
+    marginTop:10,
+  },
+  promoTextContainter:{
+    marginTop:18,
+  },
+  promoTextNormal:{
+    fontWeight:400,
+    fontSize:14.6,
+    color:'#1D1D1D',
+  },
+  promoTextBold:{
+    fontWeight:700,
+    fontSize:14.6,
+    color:'#1D1D1D',
+  }
 });
 
 export default DashboardScreenStyles;

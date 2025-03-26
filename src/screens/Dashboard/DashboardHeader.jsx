@@ -37,7 +37,7 @@ const DashboardHeader = () => {
             />
           </Svg>
         </View>
-        <View style={DashboardScreenStyles.icon}>
+        <Pressable onPress={()=>navigation.navigate('ProfileScreen')} style={DashboardScreenStyles.icon}>
           <Svg
             width="24"
             height="24"
@@ -54,7 +54,7 @@ const DashboardHeader = () => {
               fill="#3A3A3A"
             />
           </Svg>
-        </View>
+        </Pressable>
       </View>
     </View>
   );

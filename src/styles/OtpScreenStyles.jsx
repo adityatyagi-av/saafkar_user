@@ -19,7 +19,6 @@ const OtpScreenStyles = StyleSheet.create({
     textAlign: 'center',
   },
   arrowLeftParent: {
-    // flex: 1,
     marginBottom: 20,
     flexDirection: 'row',
     marginTop: 40,

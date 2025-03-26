@@ -9,6 +9,7 @@ import Dashboard from '../screens/Dashboard/Dashboard';
 import MapScreen from '../screens/MapScreen/MapScreen';
 import NameAndEmailInput from '../screens/NameAndEmailInput/NameAndEmailInput';
 import { navigationRef } from '../../utils/RootNavigation';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -27,6 +28,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
         <Stack.Screen name="nameAndEmail" component={NameAndEmailInput} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
