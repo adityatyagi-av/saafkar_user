@@ -30,12 +30,12 @@ const userAuth = (state = initialState, action) => {
         isOtpSent: true,
         userData: {},
       };
-      case TYPES.UPDATE_EMAIL_LOADING:
-        return {
-          ...state,
-          loading: true,
-          error: null,
-        };
+    case TYPES.UPDATE_EMAIL_LOADING:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
     case TYPES.VERIFY_OTP_SUCCESS:
       return {
         ...state,
@@ -54,14 +54,14 @@ const userAuth = (state = initialState, action) => {
         isOtpSent: true,
         mobileNumber: action.payload,
       };
-      case TYPES.UPDATE_EMAIL_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-          error: null,
-          userData:action.payload,
-          userDetailSetFlag:true,
-        };
+    case TYPES.UPDATE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        userData: action.payload,
+        userDetailSetFlag: true,
+      };
     case TYPES.VERIFY_OTP_FAILURE:
     case TYPES.SEND_OTP_FAILURE:
       return {
@@ -72,14 +72,12 @@ const userAuth = (state = initialState, action) => {
         isOtpSent: false,
         userData: {},
       };
-      case TYPES.UPDATE_EMAIL_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
-
-
+    case TYPES.UPDATE_EMAIL_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
     case TYPES.SEND_OTP_AGAIN:
       return {
@@ -101,6 +99,11 @@ const userAuth = (state = initialState, action) => {
         isOtpSent: false,
         mobileNumber: null,
         userDetailSetFlag: false,
+      };
+    case TYPES.UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        userData: action.payload,
       };
     default:
       return state;

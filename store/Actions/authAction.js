@@ -29,7 +29,6 @@ export const sendOtp = (nationalCode, phone) => {
         });
       }
     } catch (error) {
-     
       dispatch({
         type: TYPES.SEND_OTP_FAILURE,
         error: error.message,
@@ -114,10 +113,20 @@ export const updateEmailAndPhone = (name, email) => {
   };
 };
 
+export const updateUserProfile = userData => {
+  return async dispatch => {
+    try {
+      dispatch({type: TYPES.UPDATE_PROFILE_SUCCESS, payload: userData});
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const handleLogout = () => {
   return async dispatch => {
     try {
-await clearTokens();
+      await clearTokens();
       dispatch({type: TYPES.LOGOUT_SUCCESS});
     } catch (error) {
       console.log(error);
