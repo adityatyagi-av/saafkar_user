@@ -10,7 +10,7 @@ const DashboardHeader = () => {
   return (
     <View style={DashboardScreenStyles.topContainer}>
       <Pressable onPress={()=>{
-        navigation.navigate('MapScreen')
+        // navigation.navigate('MapScreen')
       }} style={DashboardScreenStyles.locationBox}>
         <View style={DashboardScreenStyles.locationIconBox}>
           <Icon name="location" size={50} color="#333333" />
