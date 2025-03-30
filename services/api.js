@@ -4,6 +4,8 @@ import { BASE_URL } from '../src/ApiBaseUrl/ApiBaseUrl';
 import { clearTokens, getTokens, storeTokens } from './tokenService';
 import { navigationRef } from '../utils/RootNavigation';
 import { UPDATE_REFRESH_TOKEN } from '../src/ApiEndPoints/ApiEndPoints';
+import store from '../store/store';
+import { handleLogout } from '../store/Actions/authAction';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -93,8 +95,9 @@ api.interceptors.response.use(
         console.log(' Refresh token failed:', refreshError?.response?.data || refreshError.message);
         processQueue(refreshError, null);
         await clearTokens();
-
+      
         Alert.alert('Session Expired', 'Please login again.');
+        store.dispatch(handleLogout());
         navigationRef.current?.reset({
           index: 0,
           routes: [{ name: 'Login' }],
