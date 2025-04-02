@@ -3,3 +3,7 @@ export const VERIFY_OTP = 'verify-otp';
 export const UPDATE_EMAIL = 'update-profile';
 export const UPDATE_REFRESH_TOKEN = 'refresh-token';
 export const USER_PROFILE = 'me';
+export const FETCH_USER_CARS = 'fetch-all-user-cars';
+export const FETCH_CAR_COMPANIES = 'get-all-companies';
+export const FETCH_CAR_BY_COMPANY = 'get-all-cars';
+export const CREATE_USER_CAR = 'add-user-car';

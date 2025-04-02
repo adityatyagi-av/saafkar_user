@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {bottomSheetStyle} from '../../styles/componentStyle/BottomSheetStyle';
 import LinearGradient from 'react-native-linear-gradient';
 
-const CustomBottomSheet = ({bottomSheetComponent}) => {
+const CustomBottomSheet = ({bottomSheetComponent,snapPoints}) => {
   // ref
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation();
@@ -46,7 +46,7 @@ const CustomBottomSheet = ({bottomSheetComponent}) => {
         // handleComponent={handleComponent}
         ref={bottomSheetRef}
         onChange={handleSheetChanges}
-        snapPoints={['10%', '50%']}
+        snapPoints={snapPoints}
         backgroundStyle={bottomSheetStyle.backgroundStyle}
         index={0}
         style={bottomSheetStyle.bottomSheetStyle}

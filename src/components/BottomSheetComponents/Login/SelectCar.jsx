@@ -1,26 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
 
 import SelectCarStyle from '../../../styles/componentStyle/bottomSheetComponents/SelectCarStyle';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import LinearGradient  from 'react-native-linear-gradient';
+import { fetchUserCars } from '../../../../store/Actions/carAction';
+import { useSelector } from 'react-redux';
 
-const SelectCar = () => {
-  
+const SelectCar = ({currentComponent,setCurrentComponent,selectedVehicle,setSelectedVehicle,dispatch}) => {
 
+  const {
+    error,
+    loading,
+    userCarData
+  } = useSelector(state => state.carReducer);
+  useEffect(()=>{
+    if(currentComponent==='select-car'){
+      dispatch(fetchUserCars());
+    }
+  },[currentComponent])
+console.log(userCarData);
   return (
     <>
     <View style={SelectCarStyle.headingContainer}>
        <Text style={SelectCarStyle.heading}>
-        Add Your Car and Proceed
+        Add or Select Vehicle to Proceed
         </Text>
         <Text style={SelectCarStyle.subHeading}>
 You can add more vehicle later from 
 profile section
         </Text>
     </View>
-   
     <BottomSheetScrollView>
     <View style={SelectCarStyle.heading2Container}>
         <View style={SelectCarStyle.line}/>
@@ -28,6 +39,7 @@ profile section
          <View style={SelectCarStyle.line}/>
     </View>
       <View style={SelectCarStyle.carAddedContainer}>
+    <Pressable onPress={setSelectedVehicle}>
     <LinearGradient
       colors={['#4D4D61', 'rgba(44, 44, 95, 0.804405)', 'rgba(77, 77, 97, 0.49)']}
       start={{ x: 0, y: 0 }}
@@ -64,13 +76,15 @@ profile section
       </View>
       </View>
       </LinearGradient>
+      </Pressable>
+      
       </View>
-      <Pressable style={SelectCarStyle.heading2Container}>
+      <View style={SelectCarStyle.heading2Container}>
         <View style={SelectCarStyle.line}/>
         <Text style={SelectCarStyle.heading2}>Add Car</Text>
          <View style={SelectCarStyle.line}/>
-    </Pressable>
-    <View style={SelectCarStyle.addCarContainer}>
+    </View>
+    <Pressable onPress={()=>setCurrentComponent('choose-company')} style={SelectCarStyle.addCarContainer}>
         <View style={SelectCarStyle.addCarTextContainer}>
             <Text style={SelectCarStyle.addNewText}>
               Add new
@@ -83,7 +97,7 @@ profile section
       <Image source={require('../../../assets/images/car.png')} />
 
         </View>
-    </View>
+    </Pressable>
     </BottomSheetScrollView>
   
     </>

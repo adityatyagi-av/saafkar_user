@@ -8,6 +8,7 @@ const SelectCarStyle = StyleSheet.create({
     flexDirection:'column',
     alignSelf:'flex-start',
     gap:12,
+    marginTop:10,
     marginLeft:wp('5%'),
     marginRight:wp('5%'),
   },

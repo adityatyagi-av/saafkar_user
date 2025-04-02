@@ -7,7 +7,7 @@ import api from '../../../services/api';
 import {BASE_URL} from '../../ApiBaseUrl/ApiBaseUrl';
 import {USER_PROFILE} from '../../ApiEndPoints/ApiEndPoints';
 import {useDispatch} from 'react-redux';
-import {updateUserProfile} from '../../../store/Actions/authAction';
+import {handleLogout, updateUserProfile} from '../../../store/Actions/authAction';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +37,7 @@ const SplashScreen = ({navigation}) => {
       }
     } catch (err) {
       console.log('Auth check failed:', err.message);
+      dispatch(handleLogout())
       setTimeout(() => {
         navigation.replace('After-Splash');
       }, 1500);

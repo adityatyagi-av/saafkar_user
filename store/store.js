@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import userAuth from './Reducers/authReducer';
+import carReducer from './Reducers/carReducer';
 
 
 // Configuration for Redux Persist
@@ -15,6 +16,7 @@ const persistConfig = {
 // Combine reducers
 const rootReducer = combineReducers({
   userAuth,
+  carReducer,
 });
 
 

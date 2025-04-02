@@ -5,32 +5,43 @@ import Svg, {Path} from 'react-native-svg';
 import {FlatList, Image, Text, View} from 'react-native';
 import chooseStyle from '../../../styles/componentStyle/bottomSheetComponents/chooseStyle';
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import { fetchCarCompanies } from '../../../../store/Actions/carAction';
+import { useSelector } from 'react-redux';
 
-const CompanyContainer = ({imageLink}) => (
-  <View style={chooseStyle.companyContainer}>
+const CompanyContainer = ({imageLink,id,setCompanyId,setCurrentComponent,setCompanyName,name}) => (
+  <Pressable onPress={()=>{
+    setCompanyId(id);
+    setCurrentComponent('choose-car');
+    setCompanyName(name);
+  }} style={chooseStyle.companyContainer}>
     <Image
       style={{width: 60, height: 60, resizeMode: 'contain'}}
       source={{uri: `${imageLink}`}}
     />
-  </View>
+  </Pressable>
 );
-const ChooseCompany = () => {
+const ChooseCompany = ({currentComponent,setCurrentComponent,dispatch,setCompanyId,setCompanyName}) => {
+   const {
+      error,
+      loading,
+      companyData
+    } = useSelector(state => state.carReducer);
   const [company, setCompany] = useState('');
-  const [companyData, setCompanyData] = useState([]);
-  const data = Array.from({length: 50}, (_, index) => ({
-    id: index + 1,
-    imageLink:
-      'https://saafkar.s3.ap-south-1.amazonaws.com/car-companies/layer1.png',
-    name: `Toyota ${index + 1}`,
-  }));
+  const [companyDatas, setCompanyData] = useState([]);
+ 
 
-  useEffect(() => {
-    const updatedData = data.filter(item =>
-        item.name.includes(company)
-    );
-    setCompanyData(updatedData);
-  }, [company]);
+  useEffect(()=>{
+    if(companyData?.length===0)
+    dispatch(fetchCarCompanies());
+  },[])
 
+  useEffect(()=>{
+    if(companyData && companyData?.length>0){
+      setCompanyData(companyData)
+    }
+  },[companyData])
+ 
+console.log(companyDatas)
   return (
     <>
       <View style={VerifyPhoneStyle.verifyContainer}>
@@ -60,9 +71,9 @@ const ChooseCompany = () => {
       <Text style={chooseStyle.brandText}>All Brands</Text>
       <View style={chooseStyle.companySelectContainer}>
         <BottomSheetFlatList
-          data={companyData}
+          data={companyDatas}
           renderItem={({item}) => (
-            <CompanyContainer imageLink={item.imageLink} />
+            <CompanyContainer imageLink={item?.imageLink} id={item?.id} setCurrentComponent={setCurrentComponent} setCompanyId={setCompanyId} setCompanyName={setCompanyName} name={item?.name} />
           )}
           keyExtractor={item => item.id}
           numColumns={3}
