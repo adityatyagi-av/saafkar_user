@@ -26,7 +26,7 @@ const DashboardScreenStyles = StyleSheet.create({
     maxWidth: wp('70%'),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffff',
+    // backgroundColor: '#ffff',
   },
   locationIconBox: {
     position: 'relative',
@@ -36,7 +36,7 @@ const DashboardScreenStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent:'center',
-    alignItems:'center',
+    alignItems:'flex-start',
   },
   locationText1: {
     fontWeight: 600,
