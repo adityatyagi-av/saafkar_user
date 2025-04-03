@@ -6,7 +6,7 @@ import CustomBottomSheet from '../../components/BottomSheet/CustomBottomSheet';
 import VerifyPhone from '../../components/BottomSheetComponents/Login/VerifyPhone';
 import DashboardScreenStyles from '../../styles/DashboardScreenStyle';
 import DashboardScreen from './DashboardScreen';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getTokens} from '../../../services/tokenService';
 import SelectCar from '../../components/BottomSheetComponents/Login/SelectCar';
 import ChooseCar from '../../components/BottomSheetComponents/Login/ChooseCar';
@@ -16,11 +16,18 @@ import SelectLocation from '../../components/BottomSheetComponents/Login/SelectL
 import ServiceDetails from '../../components/BottomSheetComponents/Login/ServiceDetails';
 import ChooseSubscription from '../../components/BottomSheetComponents/Login/ChooseSubscription';
 const Dashboard = ({navigation}) => {
+  const {
+    error,
+    loading,
+    userData,
+  } = useSelector(state => state.userAuth);
+  console.log(userData)
   const dispatch = useDispatch();
   const [currentComponent, setCurrentComponent] = useState('select-car');
   const [selectedVehicle, setSelectedVehicle] = useState([]);
   const [companyId,setCompanyId]=useState(null);
   const [companyName,setCompanyName]=useState('');
+  const [service,setService]=useState(1);
   const bottomSheetComponent = {
     'select-car': {
       component: (
@@ -32,7 +39,7 @@ const Dashboard = ({navigation}) => {
           dispatch={dispatch}
         />
       ),
-      snapPoints: ['65%', '80%'],
+      snapPoints: ['65%', '80%','90%'],
     },
     'choose-car': {
       component: (
@@ -73,16 +80,21 @@ const Dashboard = ({navigation}) => {
         <SelectLocation
           currentComponent={currentComponent}
           setCurrentComponent={setCurrentComponent}
+          userData={userData}
+          setService={setService}
         />
       ),
+      snapPoints: ['55%', '60%'],
     },
     'service-details': {
       component: (
         <ServiceDetails
           currentComponent={currentComponent}
           setCurrentComponent={setCurrentComponent}
+          service={service}
         />
       ),
+      snapPoints: ['65%', '80%','90%'],
     },
     'choose-subscription': {
       component: (

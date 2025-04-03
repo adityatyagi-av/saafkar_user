@@ -92,7 +92,7 @@ export const createUserCar = (carId) => {
         carId: carId,
       });
       if (response?.status === 200) {
-console.log(response)
+
         dispatch({
           type: TYPES.CREATE_USER_CAR_SUCCESS,
           payload: response?.data?.data?.userCars,

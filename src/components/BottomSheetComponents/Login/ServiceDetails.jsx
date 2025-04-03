@@ -10,9 +10,9 @@ import CompleteImage from '../../../assets/images/complet.png';
 import ExteriorImage from '../../../assets/images/exterior.png';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
-const ServiceDetails = ({service = 1}) => {
+const ServiceDetails = ({service = 1,currentComponent,setCurrentComponent}) => {
   const data = {
-    1: {
+    2: {
       name: 'Complete',
       desc: 'Complete Shine – A full cleaning, inside and out, for a fresh, like-new feel',
       imageLink: CompleteImage,
@@ -35,7 +35,7 @@ const ServiceDetails = ({service = 1}) => {
         },
       ],
     },
-    2: {
+    1: {
       name: 'Exterior',
       desc: '"Brilliant shine, every time – Elevate your ride’s look!"',
       imageLink: ExteriorImage,
@@ -63,7 +63,7 @@ const ServiceDetails = ({service = 1}) => {
     <>
       <BottomSheetScrollView>
         <View style={chooseStyle.header}>
-          <Pressable style={chooseStyle.backButton}>
+          <Pressable onPress={()=>setCurrentComponent('select-location')} style={chooseStyle.backButton}>
             <Svg
               width="6"
               height="12"
@@ -115,8 +115,10 @@ const ServiceDetails = ({service = 1}) => {
           })}
         </View>
         <View style={serviceStyle.bottomButtonContainer}>
-          <Pressable style={serviceStyle.bottomButton}>
-            <Text style={serviceStyle.buttonText}>Choose car</Text>
+          <Pressable onPress={()=>{
+            setCurrentComponent('choose-subscription')
+          }} style={serviceStyle.bottomButton}>
+            <Text style={serviceStyle.buttonText}>Select Service</Text>
             <Icon name="arrowright" size={20} color="#FFFFFF" />
           </Pressable>
         </View>

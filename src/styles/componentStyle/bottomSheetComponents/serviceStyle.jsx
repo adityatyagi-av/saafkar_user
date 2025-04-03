@@ -90,7 +90,8 @@ const serviceStyle = StyleSheet.create({
     boxShadow: '0px -5px 21.9px 0px #0000001A',
     display:'flex',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    paddingBottom:10,
   },
   bottomButton:{
     width:wp('90%'),

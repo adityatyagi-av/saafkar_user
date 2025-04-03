@@ -8,9 +8,13 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SelectCarStyle from '../../../styles/componentStyle/bottomSheetComponents/SelectCarStyle';
 
-const SelectLocation = () => {
+const SelectLocation = ({
+  currentComponent,setCurrentComponent,userData,setService,
+}) => {
   const [location, setLocation] = useState('');
-  const [activeButton, setActiveButton] = useState(1);
+  const [activeButton, setActiveButton] = useState("homeLocation");
+ 
+
   return (
     <>
       <View style={VerifyPhoneStyle.verifyContainer}>
@@ -40,37 +44,42 @@ const SelectLocation = () => {
       <View style={chooseStyle.buttonContainer}>
         <Pressable
           onPress={() => {
-            setActiveButton(1);
+            setActiveButton("homeLocation");
           }}
           style={
-            activeButton === 1
+            activeButton === "homeLocation"
               ? chooseStyle.activeButton
               : chooseStyle.inActiveButton
           }>
           <Text style={
-            activeButton === 1
+            activeButton === "homeLocation"
               ? chooseStyle.activeButtonText
               : chooseStyle.inActiveButtonText
           }>Home</Text>
         </Pressable>
         <Pressable
           onPress={() => {
-            setActiveButton(2);
+            setActiveButton("officeLocation");
           }}
           style={
-            activeButton === 2
+            activeButton === "officeLocation"
               ? chooseStyle.activeButton
               : chooseStyle.inActiveButton
           }>
           <Text style={
-            activeButton === 2
+            activeButton === "officeLocation"
               ? chooseStyle.activeButtonText
               : chooseStyle.inActiveButtonText
           }>Office</Text>
         </Pressable>
       </View>
       {/* add address container */}
-      <View style={chooseStyle.addAddressContainer}>
+
+      {
+        userData?.[activeButton] === null &&
+      
+      <Pressable onPress={()=>{
+        setCurrentComponent('add-location')}} style={chooseStyle.addAddressContainer}>
         <View style={chooseStyle.addAddressInnerContainer}>
 
        
@@ -81,8 +90,12 @@ const SelectLocation = () => {
             Add Address
           </Text>
           </View>
-      </View>
+      </Pressable>
+      }
       {/* show address container */}
+      {
+        userData?.[activeButton] !== null &&
+      
       <Pressable onPress={()=>{
         // navigation.navigate('MapScreen')
       }} style={chooseStyle.locationBox}>
@@ -98,23 +111,31 @@ const SelectLocation = () => {
           Muradnagar , 201206, Uttar Pradesh, India</Text>
         </View>
       </Pressable>
+
+    }
       <View style={SelectCarStyle.heading2Container}>
         <View style={SelectCarStyle.line}/>
         <Text style={SelectCarStyle.heading2}>Service</Text>
          <View style={SelectCarStyle.line}/>
     </View>
       <View style={chooseStyle.serviceButtonContainer}>
-        <Pressable style={chooseStyle.serviceButton}>
+        <Pressable onPress={()=>{
+          setService(1);
+          setCurrentComponent('service-details');
+        }} style={chooseStyle.serviceButton}>
                   <Image source={require('../../../assets/logo/exterior.png')} />
                   <View style={chooseStyle.serviceButtonTextContainer}>
                     <Text style={chooseStyle.serviceButtonText}>Exterior</Text>
                     <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
                   </View>
         </Pressable>
-        <Pressable style={chooseStyle.serviceButton}>
-                  <Image source={require('../../../assets/logo/exterior.png')} />
+        <Pressable onPress={()=>{
+          setService(2);
+          setCurrentComponent('service-details');
+        }} style={chooseStyle.serviceButton}>
+                  <Image source={require('../../../assets/logo/complete.png')} />
                   <View style={chooseStyle.serviceButtonTextContainer}>
-                    <Text style={chooseStyle.serviceButtonText}>Exterior</Text>
+                    <Text style={chooseStyle.serviceButtonText}>Complete</Text>
                     <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
                   </View>
         </Pressable>
