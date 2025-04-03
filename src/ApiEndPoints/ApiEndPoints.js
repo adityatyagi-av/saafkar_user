@@ -7,3 +7,5 @@ export const FETCH_USER_CARS = 'fetch-all-user-cars';
 export const FETCH_CAR_COMPANIES = 'get-all-companies';
 export const FETCH_CAR_BY_COMPANY = 'get-all-cars';
 export const CREATE_USER_CAR = 'add-user-car';
+export const ADD_ADDRESS = 'add-user-location';
+export const FETCH_ADDRESS = 'fetch-user-locations';
