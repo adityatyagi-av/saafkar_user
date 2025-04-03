@@ -23,7 +23,7 @@ const Dashboard = ({navigation}) => {
   } = useSelector(state => state.userAuth);
   console.log(userData)
   const dispatch = useDispatch();
-  const [currentComponent, setCurrentComponent] = useState('select-car');
+  const [currentComponent, setCurrentComponent] = useState('select-location');
   const [selectedVehicle, setSelectedVehicle] = useState([]);
   const [companyId,setCompanyId]=useState(null);
   const [companyName,setCompanyName]=useState('');
@@ -74,6 +74,7 @@ const Dashboard = ({navigation}) => {
           setCurrentComponent={setCurrentComponent}
         />
       ),
+      snapPoints: ['75%', '80%'],
     },
     'select-location': {
       component: (
@@ -84,7 +85,7 @@ const Dashboard = ({navigation}) => {
           setService={setService}
         />
       ),
-      snapPoints: ['55%', '60%'],
+      snapPoints: ['55%','60%'],
     },
     'service-details': {
       component: (
@@ -121,6 +122,9 @@ const Dashboard = ({navigation}) => {
       <SafeAreaView style={DashboardScreenStyles.container}>
         <DashboardScreen />
         <CustomBottomSheet
+        selectedVehicle={selectedVehicle}
+        currentComponent={currentComponent}
+        setCurrentComponent={setCurrentComponent}
           snapPoints={bottomSheetComponent?.[currentComponent]?.snapPoints}
           bottomSheetComponent={
             bottomSheetComponent?.[currentComponent]?.component

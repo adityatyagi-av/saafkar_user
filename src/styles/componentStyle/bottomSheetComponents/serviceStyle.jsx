@@ -91,7 +91,8 @@ const serviceStyle = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    paddingBottom:10,
+    paddingBottom:5,
+    paddingTop:5,
   },
   bottomButton:{
     width:wp('90%'),

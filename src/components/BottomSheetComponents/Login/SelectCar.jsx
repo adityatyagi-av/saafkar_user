@@ -6,7 +6,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { fetchUserCars } from '../../../../store/Actions/carAction';
 import { useSelector } from 'react-redux';
 import serviceStyle from '../../../styles/componentStyle/bottomSheetComponents/serviceStyle';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 const SelectCar = ({ currentComponent, setCurrentComponent, dispatch ,selectedVehicle,setSelectedVehicle}) => {
 
@@ -45,12 +44,13 @@ const SelectCar = ({ currentComponent, setCurrentComponent, dispatch ,selectedVe
           You can add more vehicles later from the profile section
         </Text>
       </View>
-      <BottomSheetScrollView>
+     
         <View style={SelectCarStyle.heading2Container}>
           <View style={SelectCarStyle.line} />
           <Text style={SelectCarStyle.heading2}>Car's Added</Text>
           <View style={SelectCarStyle.line} />
         </View>
+        <BottomSheetScrollView key={selectedVehicle}>
         <View style={SelectCarStyle.carAddedContainer}>
           {userCars?.map(item => {
             const isSelected = selectedVehicle.some(v => v.id === item.id);
@@ -90,6 +90,7 @@ const SelectCar = ({ currentComponent, setCurrentComponent, dispatch ,selectedVe
             );
           })}
         </View>
+        </BottomSheetScrollView>
         <View style={SelectCarStyle.heading2Container}>
           <View style={SelectCarStyle.line} />
           <Text style={SelectCarStyle.heading2}>Add Car</Text>
@@ -106,21 +107,6 @@ const SelectCar = ({ currentComponent, setCurrentComponent, dispatch ,selectedVe
             <Image source={require('../../../assets/images/car.png')} />
           </View>
         </Pressable>
-
-        {
-          selectedVehicle && selectedVehicle?.length>0 && 
-         <View style={{marginBottom:20}}>
-
-        
-          <Pressable onPress={()=>{
-            setCurrentComponent('select-location')
-          }} style={serviceStyle.bottomButton}>
-            <Text style={serviceStyle.buttonText}>Proceed</Text>
-            <Icon name="arrowright" size={20} color="#FFFFFF" />
-          </Pressable>
-          </View>
-        }
-      </BottomSheetScrollView>
     </>
   );
 };
