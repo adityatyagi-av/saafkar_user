@@ -173,7 +173,9 @@ const chooseStyle = StyleSheet.create({
     width: wp('50%'),
   },
   locationBox: {
-    flex: 1,
+    // flex: 1,
+    marginTop:20,
+    marginBottom:20,
     flexDirection: 'row',
     Width: wp('90%'),
     marginLeft: 20,

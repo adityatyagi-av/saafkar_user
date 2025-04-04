@@ -156,13 +156,16 @@ const SubscriptionStyle = StyleSheet.create({
     backgroundColor:'#2C2C2C',
     paddingTop:14,
     paddingBottom:14,
-    borderRadius:12
+    borderRadius:12,
+    height:43,
+    paddingRight:20,
+    paddingLeft:20
   },
   CarText:{
     color:'#858585',
     fontWeight:500,
     fontSize:12,
-    width:113,
+    
     textAlign:'center',
   },
 

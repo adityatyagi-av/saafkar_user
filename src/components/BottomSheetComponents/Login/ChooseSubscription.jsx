@@ -1,18 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import VerifyPhoneStyle from '../../../styles/componentStyle/bottomSheetComponents/verifyPhone';
 import {Pressable, TextInput} from 'react-native-gesture-handler';
-import Svg, {Path} from 'react-native-svg';
+
 import {FlatList, Image, ScrollView, Text, View} from 'react-native';
-import chooseStyle from '../../../styles/componentStyle/bottomSheetComponents/chooseStyle';
+
 import {BottomSheetFlatList, BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import SubscriptionStyle from '../../../styles/componentStyle/bottomSheetComponents/chooseSubscriptionStyle';
 
-const ChooseSubscription = () => {
+const ChooseSubscription = ({
+  selectedVehicle,currentComponent,setCurrentComponent
+}) => {
   return (
-    <>
-    <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-
- 
+    <> 
       <View style={SubscriptionStyle.headingContainer}>
         <Text style={SubscriptionStyle.chooseHeading}>Choose your</Text>
         <Text style={SubscriptionStyle.subscriptionHeading}>Subscriptions</Text>
@@ -29,7 +27,7 @@ const ChooseSubscription = () => {
       </Text>
 <View style={SubscriptionStyle.serviceContainerParent} >
 
-
+{/* individual service container */}
       <View style={SubscriptionStyle.serviceContainer}>
         {/* tag styling */}
         <View style={SubscriptionStyle.sideTag}>
@@ -102,20 +100,61 @@ const ChooseSubscription = () => {
 
 
       {/* <View style={SubscriptionStyle.CarSelectContainer}> */}
-    {/* i want horizontal scroll view here */}
-    <BottomSheetScrollView horizontal showsHorizontalScrollIndicator={false}>
-       
+    {/*horizontal scroll view here */}
+
+    <BottomSheetScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{marginBottom: 60}}>
         <View style={SubscriptionStyle.CarContainer}>
             <Text style={SubscriptionStyle.CarText}>
                 SUV
             </Text>
         </View>
-       
-       
+<View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View><View style={SubscriptionStyle.CarContainer}>
+            <Text style={SubscriptionStyle.CarText}>
+                SUV
+            </Text>
+        </View>
         </BottomSheetScrollView>
       {/* </View> */}
-     
-      </BottomSheetScrollView>
     </>
   );
 };

@@ -7,14 +7,85 @@ import chooseStyle from '../../../styles/componentStyle/bottomSheetComponents/ch
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SelectCarStyle from '../../../styles/componentStyle/bottomSheetComponents/SelectCarStyle';
+import {useSelector} from 'react-redux';
+import {fetchAddress} from '../../../../store/Actions/carAction';
+
+const RenderAddress = ({isAddress, address, setCurrentComponent}) => {
+  console.log(isAddress,address)
+  return (
+    <>
+      {isAddress ? (
+        <Pressable
+          onPress={() => {
+            // navigation.navigate('MapScreen')
+          }}
+          style={chooseStyle.locationBox}>
+          <View style={chooseStyle.locationIconBox}>
+            <Icon name="location" size={50} color="#FFFFFF" />
+          </View>
+
+          <View style={chooseStyle.locationTextBox}>
+            <Text style={chooseStyle.locationText1}>
+              {address?.houseNumber}, {address?.streetName}
+            </Text>
+            <Text style={chooseStyle.locationText2}>
+             {address?.city}, {address?.pincode}, {address?.state}
+            </Text>
+          </View>
+        </Pressable>
+      ) : (
+        <Pressable
+          onPress={() => {
+            setCurrentComponent('add-location');
+          }}
+          style={chooseStyle.addAddressContainer}>
+          <View style={chooseStyle.addAddressInnerContainer}>
+            <Text style={chooseStyle.addAddressText}>+</Text>
+            <Text style={chooseStyle.addAddressText}>Add Address</Text>
+          </View>
+        </Pressable>
+      )}
+    </>
+  );
+};
 
 const SelectLocation = ({
-  currentComponent,setCurrentComponent,userData,setService,
+  currentComponent,
+  setCurrentComponent,
+  userData,
+  setService,
+  dispatch,
+  activeButton,
+  setActiveButton,
 }) => {
+  const {error, loading, homeLocation, officeLocation} = useSelector(
+    state => state.carReducer,
+  );
   const [location, setLocation] = useState('');
-  const [activeButton, setActiveButton] = useState("homeLocation");
- 
+  const [showAddress, setShowAddress] = useState(null);
+  const [isAddress, setIsAddress] = useState(false);
 
+  useEffect(() => {
+    if (currentComponent === 'select-location') {
+      dispatch(fetchAddress());
+    }
+  }, [currentComponent]);
+
+  useEffect(() => {
+    const currentLocation =
+      activeButton === 'homeLocation' ? homeLocation :
+      activeButton === 'officeLocation' ? officeLocation :
+      null;
+    if (currentLocation !== null) {
+      setShowAddress(currentLocation);
+      setIsAddress(true);
+    } else {
+      setShowAddress(null);
+      setIsAddress(false);
+    }
+  }, [currentComponent, homeLocation, officeLocation, activeButton]);
+  
+  
   return (
     <>
       <View style={VerifyPhoneStyle.verifyContainer}>
@@ -44,105 +115,75 @@ const SelectLocation = ({
       <View style={chooseStyle.buttonContainer}>
         <Pressable
           onPress={() => {
-            setActiveButton("homeLocation");
+            setActiveButton('homeLocation');
           }}
           style={
-            activeButton === "homeLocation"
+            activeButton === 'homeLocation'
               ? chooseStyle.activeButton
               : chooseStyle.inActiveButton
           }>
-          <Text style={
-            activeButton === "homeLocation"
-              ? chooseStyle.activeButtonText
-              : chooseStyle.inActiveButtonText
-          }>Home</Text>
+          <Text
+            style={
+              activeButton === 'homeLocation'
+                ? chooseStyle.activeButtonText
+                : chooseStyle.inActiveButtonText
+            }>
+            Home
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => {
-            setActiveButton("officeLocation");
+            setActiveButton('officeLocation');
           }}
           style={
-            activeButton === "officeLocation"
+            activeButton === 'officeLocation'
               ? chooseStyle.activeButton
               : chooseStyle.inActiveButton
           }>
-          <Text style={
-            activeButton === "officeLocation"
-              ? chooseStyle.activeButtonText
-              : chooseStyle.inActiveButtonText
-          }>Office</Text>
+          <Text
+            style={
+              activeButton === 'officeLocation'
+                ? chooseStyle.activeButtonText
+                : chooseStyle.inActiveButtonText
+            }>
+            Office
+          </Text>
         </Pressable>
       </View>
       {/* add address container */}
 
-      {
-        userData?.[activeButton] === null &&
-      
-      <Pressable onPress={()=>{
-        setCurrentComponent('add-location')}} style={chooseStyle.addAddressContainer}>
-        <View style={chooseStyle.addAddressInnerContainer}>
-
-       
-          <Text style={chooseStyle.addAddressText}>
-            +
-          </Text>
-          <Text style={chooseStyle.addAddressText}>
-            Add Address
-          </Text>
-          </View>
-      </Pressable>
-      }
-      {/* show address container */}
-      {
-        userData?.[activeButton] !== null &&
-      
-      <Pressable onPress={()=>{
-        // navigation.navigate('MapScreen')
-      }} style={chooseStyle.locationBox}>
-        <View style={chooseStyle.locationIconBox}>
-          <Icon name="location" size={50} color="#FFFFFF" />
-        </View>
-
-        <View style={chooseStyle.locationTextBox}>
-          <Text style={chooseStyle.locationText1}>
-            KIET Group Of Institutions
-          </Text>
-          <Text style={chooseStyle.locationText2}>
-          Muradnagar , 201206, Uttar Pradesh, India</Text>
-        </View>
-      </Pressable>
-
-    }
+      <RenderAddress isAddress={isAddress} address={showAddress} setCurrentComponent={setCurrentComponent} />
       <View style={SelectCarStyle.heading2Container}>
-        <View style={SelectCarStyle.line}/>
+        <View style={SelectCarStyle.line} />
         <Text style={SelectCarStyle.heading2}>Service</Text>
-         <View style={SelectCarStyle.line}/>
-    </View>
+        <View style={SelectCarStyle.line} />
+      </View>
       <View style={chooseStyle.serviceButtonContainer}>
-        <Pressable onPress={()=>{
-          setService(1);
-          setCurrentComponent('service-details');
-        }} style={chooseStyle.serviceButton}>
-                  <Image source={require('../../../assets/logo/exterior.png')} />
-                  <View style={chooseStyle.serviceButtonTextContainer}>
-                    <Text style={chooseStyle.serviceButtonText}>Exterior</Text>
-                    <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
-                  </View>
+        <Pressable
+          onPress={() => {
+            setService(1);
+            setCurrentComponent('service-details');
+          }}
+          style={chooseStyle.serviceButton}>
+          <Image source={require('../../../assets/logo/exterior.png')} />
+          <View style={chooseStyle.serviceButtonTextContainer}>
+            <Text style={chooseStyle.serviceButtonText}>Exterior</Text>
+            <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
+          </View>
         </Pressable>
-        <Pressable onPress={()=>{
-          setService(2);
-          setCurrentComponent('service-details');
-        }} style={chooseStyle.serviceButton}>
-                  <Image source={require('../../../assets/logo/complete.png')} />
-                  <View style={chooseStyle.serviceButtonTextContainer}>
-                    <Text style={chooseStyle.serviceButtonText}>Complete</Text>
-                    <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
-                  </View>
+        <Pressable
+          onPress={() => {
+            setService(2);
+            setCurrentComponent('service-details');
+          }}
+          style={chooseStyle.serviceButton}>
+          <Image source={require('../../../assets/logo/complete.png')} />
+          <View style={chooseStyle.serviceButtonTextContainer}>
+            <Text style={chooseStyle.serviceButtonText}>Complete</Text>
+            <Text style={chooseStyle.serviceButtonText}>Cleaning</Text>
+          </View>
         </Pressable>
       </View>
-
-     
-      
     </>
   );
 };

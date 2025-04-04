@@ -5,8 +5,14 @@ import Svg, {Path} from 'react-native-svg';
 import {FlatList, Image, Text, View} from 'react-native';
 import chooseStyle from '../../../styles/componentStyle/bottomSheetComponents/chooseStyle';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import {addAddress} from '../../../../store/Actions/carAction';
 
-const AddLocation = () => {
+const AddLocation = ({
+  currentComponent,
+  setCurrentComponent,
+  activeButton,
+  dispatch,
+}) => {
   const [address, setAddress] = useState({
     houseNumber: '',
     streetName: '',
@@ -40,8 +46,7 @@ const AddLocation = () => {
     resetValidation(field);
   };
 
-
-  const checkValidation =()=>{
+  const checkValidation = () => {
     if (address?.pinCode === '' || address?.pinCode?.length !== 6) {
       setValidationError(err => {
         return {
@@ -92,21 +97,28 @@ const AddLocation = () => {
       });
     }
     const errorValues = Object.values(validationError);
-    if(errorValues.includes(true)){
+    if (errorValues.includes(true)) {
       return false;
-    }
-    else{
-        return true;
+    } else {
+      return true;
     }
   };
   const handleSubmit = () => {
-    const checkValidate =checkValidation();
-    
+    const checkValidate = checkValidation();
+
     if (!checkValidate) {
       return;
-    }
-    else{
-      console.log(address)
+    } else {
+      const name =
+        activeButton === 'homeLocation'
+          ? 'home'
+          : activeButton === 'officeLocation'
+          ? 'office'
+          : null;
+      const finalAddress = {...address, name: name};
+      console.log(finalAddress);
+      dispatch(addAddress(finalAddress));
+      setCurrentComponent('select-location');
     }
   };
 
@@ -115,78 +127,83 @@ const AddLocation = () => {
       <BottomSheetScrollView>
         <View style={chooseStyle.inputAddressContainer}>
           <View>
-          <TextInput
-            value={address?.houseNumber}
-            onChangeText={text => handleAddressChange(text, 'houseNumber')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter House Name"
-            style={chooseStyle.inputAddress}
-          />
-          {
-            validationError.houseNumber && <Text style={chooseStyle.errorText}>Please enter house number*</Text>
-          }
+            <TextInput
+              value={address?.houseNumber}
+              onChangeText={text => handleAddressChange(text, 'houseNumber')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter House Name"
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.houseNumber && (
+              <Text style={chooseStyle.errorText}>
+                Please enter house number*
+              </Text>
+            )}
           </View>
           <View>
-          <TextInput
-            value={address?.streetName}
-            onChangeText={text => handleAddressChange(text, 'streetName')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter Street Name"
-            style={chooseStyle.inputAddress}
-          />
-          {
-            validationError.streetName && <Text style={chooseStyle.errorText}>Please enter street address*</Text>
-          }
+            <TextInput
+              value={address?.streetName}
+              onChangeText={text => handleAddressChange(text, 'streetName')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter Street Name"
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.streetName && (
+              <Text style={chooseStyle.errorText}>
+                Please enter street address*
+              </Text>
+            )}
           </View>
 
           <View>
-          <TextInput
-            value={address?.locality}
-            onChangeText={text => handleAddressChange(text, 'locality')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter Locality Name"
-            style={chooseStyle.inputAddress}
-          />
-          {
-            validationError.locality && <Text style={chooseStyle.errorText}>Please enter Locality*</Text>
-          }
+            <TextInput
+              value={address?.locality}
+              onChangeText={text => handleAddressChange(text, 'locality')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter Locality Name"
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.locality && (
+              <Text style={chooseStyle.errorText}>Please enter Locality*</Text>
+            )}
           </View>
           <View>
-          <TextInput
-            value={address?.pinCode}
-            onChangeText={text => handleAddressChange(text, 'pinCode')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter Area Pin code "
-            style={chooseStyle.inputAddress}
-          />
-           {
-            validationError.pinCode && <Text style={chooseStyle.errorText}>Please enter correct Pincode*</Text>
-          }
+            <TextInput
+              value={address?.pinCode}
+              onChangeText={text => handleAddressChange(text, 'pinCode')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter Area Pin code "
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.pinCode && (
+              <Text style={chooseStyle.errorText}>
+                Please enter correct Pincode*
+              </Text>
+            )}
           </View>
           <View>
-        
-          <TextInput
-            value={address?.city}
-            onChangeText={text => handleAddressChange(text, 'city')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter City Name"
-            style={chooseStyle.inputAddress}
-          />
-          {
-            validationError.city && <Text style={chooseStyle.errorText}>Please enter City Name*</Text>
-          }
+            <TextInput
+              value={address?.city}
+              onChangeText={text => handleAddressChange(text, 'city')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter City Name"
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.city && (
+              <Text style={chooseStyle.errorText}>Please enter City Name*</Text>
+            )}
           </View>
           <View>
-          <TextInput
-            value={address?.state}
-            onChangeText={text => handleAddressChange(text, 'state')}
-            placeholderTextColor="#FFFFFF96"
-            placeholder="Enter State Name"
-            style={chooseStyle.inputAddress}
-          />
-          {
-            validationError.state && <Text style={chooseStyle.errorText}>Please enter State Name</Text>
-          }
+            <TextInput
+              value={address?.state}
+              onChangeText={text => handleAddressChange(text, 'state')}
+              placeholderTextColor="#FFFFFF96"
+              placeholder="Enter State Name"
+              style={chooseStyle.inputAddress}
+            />
+            {validationError.state && (
+              <Text style={chooseStyle.errorText}>Please enter State Name</Text>
+            )}
           </View>
           <Pressable onPress={handleSubmit} style={chooseStyle.saveAddress}>
             <Text style={chooseStyle.saveAddressText}>Save Address</Text>

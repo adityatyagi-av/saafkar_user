@@ -31,7 +31,6 @@ const ChooseCompany = ({currentComponent,setCurrentComponent,dispatch,setCompany
  
 
   useEffect(()=>{
-    if(companyData?.length===0)
     dispatch(fetchCarCompanies());
   },[])
 

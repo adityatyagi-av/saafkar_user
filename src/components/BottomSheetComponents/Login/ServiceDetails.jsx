@@ -114,14 +114,6 @@ const ServiceDetails = ({service = 1,currentComponent,setCurrentComponent}) => {
             );
           })}
         </View>
-        <View style={serviceStyle.bottomButtonContainer}>
-          <Pressable onPress={()=>{
-            setCurrentComponent('choose-subscription')
-          }} style={serviceStyle.bottomButton}>
-            <Text style={serviceStyle.buttonText}>Select Service</Text>
-            <Icon name="arrowright" size={20} color="#FFFFFF" />
-          </Pressable>
-        </View>
       </BottomSheetScrollView>
     </>
   );
