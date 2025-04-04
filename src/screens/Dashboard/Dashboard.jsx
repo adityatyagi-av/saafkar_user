@@ -23,11 +23,12 @@ const Dashboard = ({navigation}) => {
   } = useSelector(state => state.userAuth);
   console.log(userData)
   const dispatch = useDispatch();
-  const [currentComponent, setCurrentComponent] = useState('select-location');
+  const [currentComponent, setCurrentComponent] = useState('select-car');
   const [selectedVehicle, setSelectedVehicle] = useState([]);
   const [companyId,setCompanyId]=useState(null);
   const [companyName,setCompanyName]=useState('');
   const [service,setService]=useState(1);
+  const [activeButton, setActiveButton] = useState('homeLocation');
   const bottomSheetComponent = {
     'select-car': {
       component: (
@@ -72,6 +73,8 @@ const Dashboard = ({navigation}) => {
         <AddLocation
           currentComponent={currentComponent}
           setCurrentComponent={setCurrentComponent}
+          activeButton={activeButton}
+          dispatch={dispatch}
         />
       ),
       snapPoints: ['75%', '80%'],
@@ -83,6 +86,9 @@ const Dashboard = ({navigation}) => {
           setCurrentComponent={setCurrentComponent}
           userData={userData}
           setService={setService}
+          dispatch={dispatch}
+          activeButton={activeButton}
+          setActiveButton={setActiveButton}
         />
       ),
       snapPoints: ['55%','60%'],
@@ -102,9 +108,10 @@ const Dashboard = ({navigation}) => {
         <ChooseSubscription
           currentComponent={currentComponent}
           setCurrentComponent={setCurrentComponent}
+          selectedVehicle={selectedVehicle}
         />
       ),
-      snapPoints: ['65%', '80%'],
+      snapPoints: ['65%', '80%','90%'],
     },
   };
 
