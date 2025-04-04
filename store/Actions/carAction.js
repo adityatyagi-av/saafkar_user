@@ -122,11 +122,11 @@ export const fetchAddress = () => {
   return async dispatch => {
     try {
       dispatch({type: TYPES.FETCH_ADDRESS_LOADING});
-      const response = await api.post(`${BASE_URL}${FETCH_ADDRESS}`);
+      const response = await api.get(`${BASE_URL}${FETCH_ADDRESS}`);
       if (response?.status === 200) {
         dispatch({
           type: TYPES.FETCH_ADDRESS_SUCCESS,
-          payload: response?.data?.data?.userCars,
+          payload: response?.data?.data?.user,
         });
         return true;
       } else {
@@ -147,14 +147,20 @@ export const fetchAddress = () => {
 export const addAddress = address => {
   return async dispatch => {
     try {
+      console.log(address, 'address');
       dispatch({type: TYPES.ADD_ADDRESS_LOADING});
       const response = await api.post(`${BASE_URL}${ADD_ADDRESS}`, {
-        address,
+        name: address?.name,
+        houseNumber: address?.houseNumber,
+        streetName: address?.streetName,
+        locality: address?.locality,
+        city: address?.city,
+        state: address?.state,
+        pincode: address?.pinCode,
       });
       if (response?.status === 200) {
         dispatch({
           type: TYPES.ADD_ADDRESS_SUCCESS,
-          payload: response?.data?.data?.userCars,
         });
         return true;
       } else {
